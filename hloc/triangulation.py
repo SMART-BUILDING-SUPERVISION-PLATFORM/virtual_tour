@@ -103,12 +103,35 @@ def import_matches(image_ids: Dict[str, int],
 def estimation_and_geometric_verification(database_path: Path,
                                           pairs_path: Path,
                                           verbose: bool = False):
+
     logger.info('Performing geometric verification of the matches...')
     with OutputCapture(verbose):
+        pycolmap.verify_matches(
+            database_path,
+            pairs_path,
+            options=dict(ransac=dict(max_num_trials=20000, min_inlier_ratio=0.1)),
+        )
         with pycolmap.ostream():
-            pycolmap.verify_matches(
-                database_path, pairs_path,
-                max_num_trials=20000, min_inlier_ratio=0.1)
+            pass
+
+
+def run_triangulation(model_path: Path,
+                      database_path: Path,
+                      image_dir: Path,
+                      reference_model: pycolmap.Reconstruction,
+                      verbose: bool = False,
+                      options: Optional[Dict[str, Any]] = None,
+                      ) -> pycolmap.Reconstruction:
+    model_path.mkdir(parents=True, exist_ok=True)
+    logger.info('Running 3D triangulation...')
+    if options is None:
+        options = {}
+    with OutputCapture(verbose):
+        with pycolmap.ostream():
+            reconstruction = pycolmap.triangulate_points(
+                reference_model, database_path, image_dir, model_path,
+                options=options)
+    return reconstruction
 
 
 def geometric_verification(image_ids: Dict[str, int],
@@ -176,25 +199,6 @@ def geometric_verification(image_ids: Dict[str, int],
 
     db.commit()
     db.close()
-
-
-def run_triangulation(model_path: Path,
-                      database_path: Path,
-                      image_dir: Path,
-                      reference_model: pycolmap.Reconstruction,
-                      verbose: bool = False,
-                      options: Optional[Dict[str, Any]] = None,
-                      ) -> pycolmap.Reconstruction:
-    model_path.mkdir(parents=True, exist_ok=True)
-    logger.info('Running 3D triangulation...')
-    if options is None:
-        options = {}
-    with OutputCapture(verbose):
-        with pycolmap.ostream():
-            reconstruction = pycolmap.triangulate_points(
-                reference_model, database_path, image_dir, model_path,
-                options=options)
-    return reconstruction
 
 
 def main(sfm_dir: Path,

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Py360Convert" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/third_party/SuperGluePretrainedNetwork" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/third_party/d2net" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/third_party/deep-image-retrieval" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/third_party/disk" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/third_party/disk/submodules/torch-dimcheck" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/third_party/disk/submodules/torch-localize" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/third_party/disk/submodules/unets" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/third_party/r2d2" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/virtualTour" vcs="Git" />
+  </component>
+</project>

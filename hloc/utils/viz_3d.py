@@ -94,6 +94,7 @@ def plot_camera(
     corners = (corners / 2 * scale) @ R.T + t
 
     x, y, z = corners.T
+    color = 'rgb(255,255,255)'
     rect = go.Scatter3d(
         x=x, y=y, z=z, line=dict(color=color), legendgroup=legendgroup,
         name=name, marker=dict(size=0.0001), showlegend=False)
@@ -114,7 +115,9 @@ def plot_camera(
         vertices[i] for i in triangles.reshape(-1)
     ])
 
+    # camera position and angle plot
     x, y, z = tri_points.T
+    color = 'rgb(0,255,0)'
     pyramid = go.Scatter3d(
         x=x, y=y, z=z, mode='lines', legendgroup=legendgroup,
         name=name, line=dict(color=color, width=1), showlegend=False)
